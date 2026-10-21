@@ -1,10 +1,8 @@
 # MiSTer Phone Play
 
-Touch-controller layout fixes and picture controls for [MiSTer Control](https://github.com/RemmyLee/mister-control-releases). Includes a Windows setup script for reaching your own MiSTer through Tailscale.
+Phone controls and picture settings for [MiSTer Control](https://github.com/RemmyLee/mister-control-releases), with a Windows helper for private access through Tailscale.
 
-MiSTer Control provides the video stream, game library, and controller connection. This add-on hides the bottom navigation during play, separates the portrait controls, adds a brightness slider that lifts shadows, and guards against accidental touch zoom.
-
-Supports **MiSTer Control 0.8.3**. This is an early release, tested on one MiSTer setup.
+Requires **MiSTer Control 0.8.3**.
 
 ## What you need
 
@@ -60,16 +58,11 @@ See [Tailscale Serve](https://tailscale.com/docs/reference/tailscale-cli/serve) 
 - To quit a game, save in-game, close the controller, then choose **Power > Exit to menu**.
 - Closing the browser tab disconnects the remote view. The game continues on the MiSTer.
 
-The zoom lock cancels native touch zoom, pinch gestures, and browser zoom shortcuts while the controller is open. Ordinary toolbar clicks and the brightness slider remain available. Normal browser zoom settings return when the controller closes.
+## Limitations
 
-## Limits and testing
-
-- The tested video mode is low-resolution JPEG video without game audio. About 17–19 fps was measured on the test setup; phone performance depends on the network.
-- Remote gameplay was confirmed on an iPhone, including Super Mario World and Doom 64. The brightness adjustment was checked against a live Doom 64 picture.
-- Private forwarding was tested on Windows with Tailscale 1.104.2.
-- Portrait and landscape control layouts were checked in a desktop browser. The Safari double-tap fix still needs a physical-device retest.
-- Other MiSTer Control versions are not supported by the installer yet. An application update may replace the web index; reinstall a compatible add-on after updating.
-- Some cores may need their own controller mapping.
+- Low-resolution video without game audio. Frame rate and delay depend on the network.
+- Some cores need their own controller mapping.
+- Only MiSTer Control 0.8.3 is supported. An application update may replace the web index; reinstall a compatible add-on afterward.
 
 ## Remove
 
@@ -88,17 +81,6 @@ To stop private forwarding on Windows, run the command printed by the setup scri
 ```
 
 This leaves Tailscale installed and signed in. It does not change unattended mode.
-
-## Development
-
-Run the installer checks with Python 3 and a POSIX shell:
-
-```sh
-python tests/test_install.py
-node --test tests/zoom-lock.test.cjs
-```
-
-On Windows, the tests use Git for Windows Bash. Set the BASH_BIN environment variable to use another shell.
 
 ## Credits
 
