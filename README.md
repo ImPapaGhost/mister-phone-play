@@ -41,7 +41,8 @@ Do this on a Windows PC connected to the same home network as the MiSTer:
 3. Find the MiSTer's home-network IP address. Open PowerShell in the extracted repository folder and run the following, replacing the example address with your MiSTer's address:
 
    ```powershell
-   .\windows\Connect-MiSTer.ps1 -MiSTerAddress 192.168.1.50 -KeepConnected
+   Unblock-File -LiteralPath .\windows\Connect-MiSTer.ps1
+   powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File .\windows\Connect-MiSTer.ps1 -MiSTerAddress 192.168.1.50 -KeepConnected
    ```
 
 4. Open the address printed by the script in your phone browser. Keep Tailscale connected on the phone and leave **Exit node > None**.
