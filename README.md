@@ -4,8 +4,6 @@ Phone controls and picture settings for [MiSTer Control](https://github.com/Remm
 
 [![Gameplay demo](media/demo.gif)](media/demo.mp4)
 
-[Watch demo (MP4)](media/demo.mp4)
-
 Requires **MiSTer Control 0.8.3**.
 
 ## What you need
