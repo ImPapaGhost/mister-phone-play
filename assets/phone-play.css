@@ -54,7 +54,12 @@ body:has(.kb) .dockwrap { display: none !important; }
   -webkit-user-select: none;
   user-select: none;
 }
-body:has(.gp) { overscroll-behavior: none; }
+html:has(.gp), body:has(.gp), #app:has(.gp) {
+  touch-action: none !important;
+  overscroll-behavior: none;
+  overflow: hidden;
+}
+.gp input, .gp select, .gp textarea { font-size: 16px; }
 .gp .gp-video img.live-img, .gp .gp-video canvas {
   filter: var(--remote-picture-filter, none);
 }

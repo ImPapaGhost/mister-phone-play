@@ -28,7 +28,7 @@ The MiSTer Control installer downloads its application and optional data and add
 4. Reload MiSTer Control in your phone browser. On home Wi-Fi, its address is `http://YOUR-MISTER-IP:8110/`.
 5. Tap the running game, or choose **Controllers > Play on phone**.
 
-The installer backs up the web index and adds two files under MiSTer Control's `web/phone-play/` directory. It also installs a default map for the virtual touch controller if no map exists. Existing controller maps are preserved. If a new map was added, reload the core before testing the buttons.
+The installer backs up the web index and adds its files under MiSTer Control's `web/phone-play/` directory. It also installs a default map for the virtual touch controller if no map exists. Existing controller maps are preserved. If a new map was added, reload the core before testing the buttons.
 
 The game and MiSTer service do not restart during installation. The original JavaScript and CSS bundles are left in place.
 
@@ -60,7 +60,7 @@ See [Tailscale Serve](https://tailscale.com/docs/reference/tailscale-cli/serve) 
 - To quit a game, save in-game, close the controller, then choose **Power > Exit to menu**.
 - Closing the browser tab disconnects the remote view. The game continues on the MiSTer.
 
-The touch-zoom guards apply while the controller is open. Normal browser zoom settings return when it closes.
+The zoom lock cancels native touch zoom, pinch gestures, and browser zoom shortcuts while the controller is open. Ordinary toolbar clicks and the brightness slider remain available. Normal browser zoom settings return when the controller closes.
 
 ## Limits and testing
 
@@ -95,6 +95,7 @@ Run the installer checks with Python 3 and a POSIX shell:
 
 ```sh
 python tests/test_install.py
+node --test tests/zoom-lock.test.cjs
 ```
 
 On Windows, the tests use Git for Windows Bash. Set the BASH_BIN environment variable to use another shell.

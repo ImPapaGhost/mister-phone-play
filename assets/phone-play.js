@@ -1,10 +1,7 @@
 (() => {
   'use strict';
   const storageKey = 'mister-control-remote-brightness';
-  const viewport = document.querySelector('meta[name="viewport"]');
-  const normalViewport = viewport?.getAttribute('content') || '';
   let controller = null;
-  let lastControlTap = 0;
   const clamp = value => Math.min(180, Math.max(100, Number(value) || 100));
   let brightness = 100;
   try { brightness = clamp(localStorage.getItem(storageKey)); } catch {}
@@ -20,8 +17,6 @@
   }
   function attach(gp) {
     controller = gp;
-    lastControlTap = 0;
-    viewport?.setAttribute('content', normalViewport + ', minimum-scale=1, maximum-scale=1, user-scalable=no');
     const svgNS = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(svgNS, 'svg');
     svg.setAttribute('aria-hidden', 'true');
@@ -76,29 +71,11 @@
     range.addEventListener('input', () => { brightness = clamp(range.value); applyBrightness(); });
     applyBrightness();
   }
-  // Cancel browser zoom gestures only while playing. Pointer events remain
-  // untouched, including simultaneous D-pad and action-button presses.
-  document.addEventListener('dblclick', event => {
-    if (event.target instanceof Element && event.target.closest('.gp') && event.cancelable) event.preventDefault();
-  }, { capture: true, passive: false });
-  document.addEventListener('touchend', event => {
-    const target = event.target instanceof Element ? event.target : null;
-    if (!target?.closest('.gp') || target.closest('.gp-close, .gp-kb, .mc-view-tools, .gp-video button')) return;
-    const now = performance.now();
-    if (now - lastControlTap < 350 && event.cancelable) event.preventDefault();
-    lastControlTap = now;
-  }, { capture: true, passive: false });
-  for (const type of ['gesturestart', 'gesturechange', 'gestureend']) {
-    document.addEventListener(type, event => {
-      if (controller?.isConnected && event.cancelable) event.preventDefault();
-    }, { capture: true, passive: false });
-  }
   function sync() {
     const gp = document.querySelector('.gp');
     if (gp && gp !== controller) attach(gp);
     if (!gp && controller) {
       controller = null;
-      viewport?.setAttribute('content', normalViewport);
     }
   }
   new MutationObserver(sync).observe(document.documentElement, { childList: true, subtree: true });
