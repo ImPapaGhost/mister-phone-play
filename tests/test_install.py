@@ -48,6 +48,8 @@ class InstallerTests(unittest.TestCase):
         self.assertEqual(html.count('/phone-play/phone-play.js'), 1)
         self.assertEqual(self.map.stat().st_size, 128)
         self.assertEqual((self.web/'phone-play/phone-play.js').read_bytes(), (ROOT/'assets/phone-play.js').read_bytes())
+        self.assertEqual(self.index.read_text().count('/phone-play/recording.js'), 1)
+        self.assertEqual((self.web/'phone-play/recording.js').read_bytes(), (ROOT/'assets/recording.js').read_bytes())
     def test_remove_preserves_later_index_edits(self):
         self.run_installer()
         self.index.write_text(self.index.read_text().replace('Fixture', 'Edited later'))

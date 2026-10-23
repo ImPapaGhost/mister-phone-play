@@ -60,6 +60,14 @@ See [Tailscale Serve](https://tailscale.com/docs/reference/tailscale-cli/serve) 
 - To quit a game, save in-game, close the controller, then choose **Power > Exit to menu**.
 - Closing the browser tab disconnects the remote view. The game continues on the MiSTer.
 
+## Record a clip
+
+Open the phone controller and tap **Record**. Tap **Stop**, then **Save clip** to download the video to your phone or PC. Use **Close** after saving, or **Discard** to start over.
+
+Clips contain the original game picture without audio, touch controls, or the browser brightness adjustment. The browser chooses MP4 or WebM according to its recording support. Recording stops after five minutes, around 64 MB, when you close the controller, or when the app goes into the background. Keep the tab open until you have saved the clip; unsaved clips are held only in browser memory.
+
+Use a current Safari, Chrome, or Edge browser. On an iPhone, find the saved clip in Safari's downloads and use Share to save it to Photos if the format is supported.
+
 ## Limitations
 
 - Low-resolution video without game audio. Frame rate and delay depend on the network.

@@ -46,7 +46,7 @@ if [ "$MODE" = remove ]; then
   backup_index
   strip_block
   mv "$TMP" "$INDEX"
-  rm -f "$ASSETS/phone-play.css" "$ASSETS/phone-play.js" "$ASSETS/zoom-lock.js"
+  rm -f "$ASSETS/phone-play.css" "$ASSETS/phone-play.js" "$ASSETS/zoom-lock.js" "$ASSETS/recording.js"
   rmdir "$ASSETS" 2>/dev/null || true
   # Remove a map only if this installer created it and it is still unchanged.
   if [ -f "$STATE/created-controller-map" ] && [ -f "$MAP" ]; then
@@ -84,12 +84,14 @@ mkdir -p "$ASSETS"
 cp "$HERE/assets/phone-play.css" "$ASSETS/phone-play.css"
 cp "$HERE/assets/phone-play.js" "$ASSETS/phone-play.js"
 cp "$HERE/assets/zoom-lock.js" "$ASSETS/zoom-lock.js"
+cp "$HERE/assets/recording.js" "$ASSETS/recording.js"
 awk '
   /<\/head>/ {
     print "    <!-- mister-phone-play:begin -->"
-    print "    <link rel=\"stylesheet\" href=\"/phone-play/phone-play.css?v=0.1.1\">"
-    print "    <script defer src=\"/phone-play/zoom-lock.js?v=0.1.1\"></script>"
-    print "    <script defer src=\"/phone-play/phone-play.js?v=0.1.1\"></script>"
+    print "    <link rel=\"stylesheet\" href=\"/phone-play/phone-play.css?v=0.2.0\">"
+    print "    <script defer src=\"/phone-play/zoom-lock.js?v=0.2.0\"></script>"
+    print "    <script defer src=\"/phone-play/phone-play.js?v=0.2.0\"></script>"
+    print "    <script defer src=\"/phone-play/recording.js?v=0.2.0\"></script>"
     print "    <!-- mister-phone-play:end -->"
   }
   {print}
