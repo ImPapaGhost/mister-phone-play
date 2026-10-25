@@ -1,0 +1,120 @@
+/* Local iPhone controller layout fix. Original app bundle is unchanged. */
+body:has(.gp) .dockwrap,
+body:has(.kb) .dockwrap { display: none !important; }
+.gp {
+  height: var(--app-h, 100dvh);
+  bottom: auto;
+}
+.gp .gp-close, .gp .gp-kb {
+  top: calc(10px + env(safe-area-inset-top, 0px));
+}
+.gp .gp-close { right: max(12px, env(safe-area-inset-right, 0px)); }
+.gp .gp-kb { right: calc(max(12px, env(safe-area-inset-right, 0px)) + 48px); }
+@media (orientation: portrait) {
+  .gp {
+    --pad-btn: min(56px, calc((100vw - 48px) / 6));
+    --pad-size: calc(var(--pad-btn) * 3);
+  }
+  .gp .gp-screen {
+    top: calc(122px + env(safe-area-inset-top, 0px));
+    bottom: calc(248px + env(safe-area-inset-bottom, 0px));
+  }
+  .gp .dpad, .gp .face {
+    width: var(--pad-size);
+    height: var(--pad-size);
+    bottom: calc(66px + env(safe-area-inset-bottom, 0px));
+  }
+  .gp .dpad { left: 16px; }
+  .gp .face { right: 16px; }
+  .gp .d, .gp .fb { width: var(--pad-btn); height: var(--pad-btn); }
+  .gp .d.up, .gp .fb.x { left: var(--pad-btn); top: 0; }
+  .gp .d.left, .gp .fb.y { left: 0; top: var(--pad-btn); }
+  .gp .d.right, .gp .fb.a { left: calc(var(--pad-btn) * 2); top: var(--pad-btn); }
+  .gp .d.down, .gp .fb.b { left: var(--pad-btn); top: calc(var(--pad-btn) * 2); }
+  .gp .center {
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    gap: 8px;
+  }
+  .gp .mini { min-height: 40px; padding: 0 15px; }
+  .gp .sh { top: calc(64px + env(safe-area-inset-top, 0px)); }
+  .gp .sh.l { left: 16px; }
+  .gp .sh.r { right: 16px; }
+}
+@media (orientation: landscape) {
+  .gp .dpad { left: max(26px, calc(env(safe-area-inset-left, 0px) + 12px)); }
+  .gp .face { right: max(26px, calc(env(safe-area-inset-right, 0px) + 12px)); }
+  .gp .dpad, .gp .face { bottom: max(30px, calc(env(safe-area-inset-bottom, 0px) + 12px)); }
+  .gp .center { bottom: max(26px, calc(env(safe-area-inset-bottom, 0px) + 8px)); }
+}
+
+/* Safari gesture guards and a client-only picture adjustment. */
+.gp, .gp * {
+  touch-action: none !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+html:has(.gp), body:has(.gp), #app:has(.gp) {
+  touch-action: none !important;
+  overscroll-behavior: none;
+  overflow: hidden;
+}
+.gp input, .gp select, .gp textarea { font-size: 16px; }
+.gp .gp-video img.live-img, .gp .gp-video canvas {
+  filter: var(--remote-picture-filter, none);
+}
+.gp .mc-view-tools {
+  position: absolute;
+  z-index: 5;
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  left: max(12px, env(safe-area-inset-left, 0px));
+  font: 13px system-ui, sans-serif;
+  color: white;
+}
+.gp .mc-view-toggle {
+  min-width: 64px; min-height: 40px; padding: 0 12px;
+  border: 1px solid #ffffff40; border-radius: 10px;
+  background: #20242be8; color: white; font-weight: 600;
+}
+.gp .mc-view-panel {
+  position: absolute; top: 48px; left: 0;
+  width: min(280px, calc(100vw - 24px));
+  padding: 16px; border: 1px solid #ffffff40; border-radius: 12px;
+  background: #171b23fa; box-shadow: 0 6px 30px #0009;
+}
+.gp .mc-view-panel[hidden] { display: none; }
+.gp .mc-view-panel label { display: inline-block; font-weight: 600; }
+.gp .mc-brightness-value { float: right; font-variant-numeric: tabular-nums; }
+.gp .mc-brightness-range { display: block; width: 100%; height: 40px; margin: 12px 0 6px; accent-color: #4da9ff; }
+.gp .mc-view-actions { display: flex; justify-content: space-between; gap: 10px; }
+.gp .mc-view-actions button { min-height: 40px; padding: 0 10px; background: #303744; border: 0; border-radius: 8px; color: white; font: inherit; }
+.gp .mc-view-toggle:focus-visible, .gp .mc-view-actions button:focus-visible, .gp .mc-brightness-range:focus-visible { outline: 2px solid #71baff; outline-offset: 3px; }
+
+.gp .mc-record-button {
+  position: absolute; z-index: 5;
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  left: calc(max(12px, env(safe-area-inset-left, 0px)) + 72px);
+  min-height: 40px; padding: 0 10px;
+  border: 1px solid #ffffff40; border-radius: 10px;
+  background: #20242be8; color: white; font: 600 13px system-ui, sans-serif;
+}
+.gp .mc-record-button.is-recording { background: #8f2424; }
+.mc-record-panel {
+  position: fixed; z-index: 10000;
+  top: calc(58px + env(safe-area-inset-top, 0px));
+  left: max(12px, env(safe-area-inset-left, 0px));
+  box-sizing: border-box; width: min(300px, calc(100vw - 24px));
+  padding: 16px; border: 1px solid #ffffff40; border-radius: 12px;
+  background: #171b23; color: white; box-shadow: 0 6px 30px #0009;
+  font: 14px/1.5 system-ui, sans-serif;
+}
+.mc-record-panel[hidden], .mc-record-panel [hidden] { display: none; }
+.mc-record-panel p { margin: 0 0 12px; }
+.mc-record-panel a, .mc-record-panel button {
+  display: inline-block; box-sizing: border-box; min-height: 40px;
+  padding: 10px 14px; border: 0; border-radius: 8px;
+  background: #303744; color: white; text-decoration: none; font: inherit;
+}
+.mc-record-panel button { margin-left: 8px; }
+.mc-record-panel a { background: #225e9c; }
+.mc-record-panel :focus-visible, .gp .mc-record-button:focus-visible { outline: 2px solid #71baff; outline-offset: 3px; }
